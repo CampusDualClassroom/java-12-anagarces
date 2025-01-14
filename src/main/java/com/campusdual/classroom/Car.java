@@ -1,5 +1,4 @@
 package com.campusdual.classroom;
-
 public class Car {
     public static final int MAX_SPEED = 120;
 
@@ -11,16 +10,15 @@ public class Car {
     public String gear = "N";
     public boolean reverse = false;
     public int wheelsAngle = 0;
-    public boolean tachometerValue;
-
-    public Car() {
-
-    }
 
     public Car(String brand, String model, String fuel) {
         this.brand = brand;
         this.model = model;
         this.fuel = fuel;
+    }
+
+    public Car(){
+
     }
 
     public void start() {
@@ -67,10 +65,16 @@ public class Car {
         //0 -> posición central
         //+45 -> máximo giro a la derecha
         //-45 -> máximo giro a la izquierda
-        if (this.wheelsAngle <= 45 && this.wheelsAngle >= -45) {
-            this.wheelsAngle += angle;
-        } else {
-            System.out.println("O volante non pode xirar máis. Xa está ao máximo de xiro.");
+        //comprobamos que el valor inicial no exceda el numero con el nuevo valor agregado
+        int newAngle = this.wheelsAngle + angle;
+        if (newAngle > 45) {
+            this.wheelsAngle = 45;
+            System.out.println("El volante ya esta en el maximo giro a la derecha: " + wheelsAngle);
+        } else if(newAngle < -45) {
+            this.wheelsAngle = -45;
+            System.out.println("El volante ya esta en el maximo giro a la izquierda: " + wheelsAngle);
+        } else{
+            this.wheelsAngle = newAngle;
         }
     }
 
@@ -95,6 +99,10 @@ public class Car {
     }
 
     public void setReverse(boolean reverse) {
+        if(reverse && this.speedometer > 0){
+            System.out.println("No se puede poner marcha atras mientras el coche esta en movimiento");
+            return;
+        }
         if (this.tachometer > 0 && this.speedometer == 0) {
             if (this.isReverse() == reverse) {
                 System.out.println("O vehículo xa ten esa marcha indicada.");
@@ -118,25 +126,19 @@ public class Car {
                 + ". O ángulo de xiro do volante é " + this.showSteeringWheelDetail());
     }
 
-    public void valueTachometer() {
-        if (this.tachometer == 0) {
-            System.out.println("El tacómetro está en 0");
+    public boolean isTachometerEqualToZero(){
+        if(tachometer == 0){
+            return true;
         } else {
-            System.out.println("El tacómetro está en " + this.tachometer);
+            return false;
         }
     }
 
-    //Un metodo booleano que verifique si el valor del tacómetro es cero
-    public boolean isTachometerGreaterThanZero() {
-        if (this.tachometer > 0) {
-            //this.tachometerValue = true;
+    public boolean isTachometerGreaterThanZero(){
+        if(tachometer > 0){
             return true;
-        } else {
-            this.tachometerValue = false;
-            System.out.println("Valor del tacómetro es : " + this.tachometer);
-        } return this.tachometerValue;
+        } else{
+            return false;
+        }
     }
 }
-
-
-

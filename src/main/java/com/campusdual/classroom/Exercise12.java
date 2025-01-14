@@ -2,69 +2,62 @@ package com.campusdual.classroom;
 
 public class Exercise12 {
     public static void main(String[] args) {
+    Car myCar = new Car();
 
-        Car myCar = new Car("seat", "leon", "diesel");
+    System.out.println("\nUn metodo booleano que verifique si el valor del tacómetro es cero: ");
+        System.out.println(myCar.isTachometerEqualToZero());
 
-        //encender el coche comprobando el valor correcto del tacómetro (investigar cuál es el valor correcto)
+    System.out.println("\nEncender el coche comprobando el valor correcto del tacómetro (investigar cuál es el valor correcto): ");
+    if(myCar.isTachometerEqualToZero()){
         myCar.start();
+    }
 
-        //Encender el coche cuando ya está encendido (comprobar que no se puede encender si ya está encendido)
+    System.out.println("\nEncender el coche cuando ya está encendido (comprobar que no se puede encender si ya está encendido): ");
+       if(myCar.isTachometerGreaterThanZero()){
+           myCar.start();
+       }
+
+    System.out.println("\nApagar el coche comprobando que el valor del tacómetro es correcto: ");
+     myCar.stop();
+        System.out.println(myCar.isTachometerEqualToZero());
+
+     System.out.println("\nApagar el coche mientras todavía está en movimiento (y comprobar que no se puede): ");
         myCar.start();
+        myCar.accelerate();
+        myCar.stop();
 
-       //Apagar el coche comprobando que el valor del tacómetro es correcto
-       do {
-           myCar.stop();
-       } while (myCar.isTachometerGreaterThanZero());
-
-        //Apagar el coche mientras todavía está en movimiento (y comprobar que no se puede)
-        do{
-            myCar.start();
-            myCar.accelerate();
-            myCar.stop();
-        } while(!myCar.isTachometerGreaterThanZero());
-
-        //Acelerar el coche
+     System.out.println("\nAcelerar el coche: ");
         myCar.accelerate();
 
-       //Acelerar hasta intentar superar la velocidad máxima (y comprobar que no se puede)
-        while (myCar.speedometer < myCar.MAX_SPEED) {
-            myCar.accelerate();
-            if (myCar.speedometer == myCar.MAX_SPEED) {
-                myCar.accelerate();
-            }
-        }
+     System.out.println("\nAcelerar hasta intentar superar la velocidad máxima (y comprobar que no se puede): ");
+        myCar.speedometer = 120;
+        myCar.accelerate();
 
-        //Frenar la velocidad
+     System.out.println("\nFrenar la velocidad: ");
+      myCar.brake();
+
+       System.out.println("\nFrenar hasta un valor negativo (y comprobar que no se puede): ");
+        myCar.speedometer = 0;
         myCar.brake();
 
-        //Frenar hasta un valor negativo (y comprobar que no se puede)
-           do{
-               myCar.brake();
-               if(myCar.speedometer == 0){
-                   myCar.brake();
-               }
-           } while(myCar.speedometer > 0);
-
-       // Girar el volante 20 grados
+        System.out.println("\nGirar el volante 20 grados: ");
         myCar.turnAngleOfWheels(20);
+        System.out.println(myCar.showSteeringWheelDetail());
 
-       // Girar el volante más de 45 grados ó -45 grados (y comprobar que no se puede)
-        myCar.turnAngleOfWheels(100);
-        myCar.turnAngleOfWheels(-100);
+     System.out.println("\nGirar el volante más de 45 grados ó -45 grados (y comprobar que no se puede): ");
+     myCar.turnAngleOfWheels(200);
+     myCar.turnAngleOfWheels(-200);
 
-    //Detener el coche y poner marcha atrás
-        myCar.brake();
+
+     System.out.println("\nDetener el coche y poner marcha atrás");
+        myCar.setReverse(true);
+
+     System.out.println("\nPoner marcha atrás mientras el coche está en movimiento marcha adelante (y comprobar que no se puede)");
+        myCar.speedometer = 20;
         myCar.setReverse(true);
 
 
-    //Poner marcha atrás mientras el coche está en movimiento marcha adelante (y comprobar que no se puede)
-      do{
-          myCar.setReverse(true);
-          break;
-      } while(myCar.gear.equals("N"));
-
     }
-
-        }
+}
 
 
